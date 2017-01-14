@@ -36,3 +36,15 @@ func CurrentImplementation() Implementation {
 func DefaultImplementation() Implementation {
 	return defaultImplementation{}
 }
+
+// NewIm2Col32 calls NewIm2Col32 on the current
+// Implementation.
+func NewIm2Col32(d *Im2ColDims) Im2Col32 {
+	return CurrentImplementation().NewIm2Col32(d)
+}
+
+// NewIm2Col64 calls NewIm2Col64 on the current
+// Implementation.
+func NewIm2Col64(d *Im2ColDims) Im2Col64 {
+	return CurrentImplementation().NewIm2Col64(d)
+}
