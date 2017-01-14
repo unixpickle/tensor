@@ -65,8 +65,10 @@ func (d defaultImplementation) NewIm2Col32(dims *Im2ColDims) Im2Col32 {
 }
 
 func (d defaultImplementation) NewIm2Col64(dims *Im2ColDims) Im2Col64 {
-	// TODO: this.
-	return nil
+	return &im2Col64{
+		mapping: im2ColMapping(dims),
+		dims:    dims,
+	}
 }
 
 func im2ColMapping(dims *Im2ColDims) []int {
@@ -123,6 +125,36 @@ func (i *im2Col32) ToImage(mat []float32) *Float32 {
 			len(mat)))
 	}
 	res := NewFloat32(i.dims.ImageWidth, i.dims.ImageHeight, i.dims.ImageDepth)
+	for j, x := range i.mapping {
+		res.Data[x] += mat[j]
+	}
+	return res
+}
+
+type im2Col64 struct {
+	mapping []int
+	dims    *Im2ColDims
+}
+
+func (i *im2Col64) Dims() *Im2ColDims {
+	return i.dims
+}
+
+func (i *im2Col64) ToMatrix(img *Float64) []float64 {
+	i.dims.verifyDims(img.Width, img.Height, img.Depth)
+	res := make([]float64, len(i.mapping))
+	for j, x := range i.mapping {
+		res[j] = img.Data[x]
+	}
+	return res
+}
+
+func (i *im2Col64) ToImage(mat []float64) *Float64 {
+	if len(mat) != len(i.mapping) {
+		panic(fmt.Sprintf("expected matrix size %d but got %d", len(i.mapping),
+			len(mat)))
+	}
+	res := NewFloat64(i.dims.ImageWidth, i.dims.ImageHeight, i.dims.ImageDepth)
 	for j, x := range i.mapping {
 		res.Data[x] += mat[j]
 	}
