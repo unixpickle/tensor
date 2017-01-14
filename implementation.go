@@ -11,8 +11,8 @@ type defaultImplementation struct{}
 // library in a modular fashion, allowing different
 // implementations to be swapped in at runtime.
 type Implementation interface {
-	NewIm2Col32(Im2ColDims) Im2Col32
-	NewIm2Col64(Im2ColDims) Im2Col64
+	NewIm2Col32(*Im2ColDims) Im2Col32
+	NewIm2Col64(*Im2ColDims) Im2Col64
 }
 
 // Use tells the library to use a given implementation.

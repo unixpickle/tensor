@@ -13,6 +13,16 @@ type Float64 struct {
 	Data []float64
 }
 
+// NewFloat64 creates a new, zero'd out Float64.
+func NewFloat64(width, height, depth int) *Float64 {
+	return &Float64{
+		Width:  width,
+		Height: height,
+		Depth:  depth,
+		Data:   make([]float64, width*height*depth),
+	}
+}
+
 // Index returns the index in the Data for the given
 // coordinate, where x is the column, y is the row, and
 // z is the depth.

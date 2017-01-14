@@ -13,6 +13,16 @@ type Float32 struct {
 	Data []float32
 }
 
+// NewFloat32 creates a new, zero'd out Float32.
+func NewFloat32(width, height, depth int) *Float32 {
+	return &Float32{
+		Width:  width,
+		Height: height,
+		Depth:  depth,
+		Data:   make([]float32, width*height*depth),
+	}
+}
+
 // Index returns the index in the Data for the given
 // coordinate, where x is the column, y is the row, and
 // z is the depth.
