@@ -18,7 +18,7 @@ func addVecFast32(v1, v2 []float32) {
 // divisible by two and greater than zero.
 // Result is stored in v1.
 func addVecFast64(v1, v2 []float64) {
-	if len(v1) != len(v2) || len(v1)%4 != 0 {
+	if len(v1) != len(v2) || len(v1)%2 != 0 {
 		panic("invalid lengths")
 	}
 	for i, x := range v2 {
