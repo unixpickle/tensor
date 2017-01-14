@@ -139,9 +139,7 @@ func (i *im2Col32) ToImage(mat []float32) *Float32 {
 	res := NewFloat32(i.dims.ImageWidth, i.dims.ImageHeight, i.dims.ImageDepth)
 	sourceIdx := 0
 	for _, x := range i.mapping {
-		for j := 0; j < rowSize; j++ {
-			res.Data[x+j] += mat[sourceIdx+j]
-		}
+		addVec32(res.Data[x:x+rowSize], mat[sourceIdx:sourceIdx+rowSize])
 		sourceIdx += rowSize
 	}
 	return res
@@ -178,9 +176,7 @@ func (i *im2Col64) ToImage(mat []float64) *Float64 {
 	res := NewFloat64(i.dims.ImageWidth, i.dims.ImageHeight, i.dims.ImageDepth)
 	sourceIdx := 0
 	for _, x := range i.mapping {
-		for j := 0; j < rowSize; j++ {
-			res.Data[x+j] += mat[sourceIdx+j]
-		}
+		addVec64(res.Data[x:x+rowSize], mat[sourceIdx:sourceIdx+rowSize])
 		sourceIdx += rowSize
 	}
 	return res

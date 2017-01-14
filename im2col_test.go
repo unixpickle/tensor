@@ -201,3 +201,15 @@ func vectorsSimilar32(v1, v2 []float32) bool {
 	}
 	return true
 }
+
+func vectorsSimilar64(v1, v2 []float64) bool {
+	if len(v1) != len(v2) {
+		return false
+	}
+	for i, x := range v1 {
+		if math.Abs(x-v2[i]) > 1e-5 {
+			return false
+		}
+	}
+	return true
+}
